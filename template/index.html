@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Painel de Auditorias</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-4">
+  <div class="container">
+    <h1>Painel de Auditorias</h1>
+
+    <div class="row mb-3">
+      <div class="col-md-3">
+        <select id="labSelect" class="form-select">
+          <option value="">-- Todos os laboratórios --</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <input id="q" class="form-control" placeholder="Pesquisar por código ou nome">
+      </div>
+      <div class="col-md-2">
+        <select id="status" class="form-select">
+          <option value="">-- Situação --</option>
+          <option>DIVERGENTE</option>
+          <option>Pendente</option>
+          <option>OK</option>
+        </select>
+      </div>
+      <div class="col-md-3 text-end">
+        <button class="btn btn-primary" id="searchBtn">Pesquisar</button>
+        <button class="btn btn-success" id="showImport">Importar CSV</button>
+      </div>
+    </div>
+
+    <div id="results">
+      <table class="table table-sm table-striped">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Lab</th>
+            <th>Código</th>
+            <th>Nome</th>
+            <th>Sistema</th>
+            <th>Físico</th>
+            <th>Situação</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Import modal (simple inline form) -->
+    <div id="importArea" class="border p-3 mt-3" style="display:none;">
+      <h5>Importar auditoria via CSV</h5>
+      <form id="importForm">
+        <div class="mb-2">
+          <label>Nome do Laboratório</label>
+          <input name="lab_name" class="form-control" required>
+        </div>
+        <div class="mb-2">
+          <label>Data (opcional, ISO, ex: 2025-12-01T10:00)</label>
+          <input name="date" class="form-control" placeholder="YYYY-MM-DDThh:mm">
+        </div>
+        <div class="mb-2">
+          <label>Notas</label>
+          <input name="notes" class="form-control">
+        </div>
+        <div class="mb-2">
+          <label>Arquivo CSV</label>
+          <input type="file" name="file" accept=".csv" class="form-control" required>
+        </div>
+        <button class="btn btn-primary">Enviar</button>
+        <button type="button" id="cancelImport" class="btn btn-secondary">Fechar</button>
+      </form>
+      <div class="mt-2" id="importMsg"></div>
+      <p class="mt-2 small">CSV deve ter cabeçalho: code,name,system_qty,physical_qty,status</p>
+    </div>
+
+  </div>
+
+  <script src="/static/main.js"></script>
+</body>
+</html>
